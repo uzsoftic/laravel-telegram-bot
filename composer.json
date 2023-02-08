@@ -1,11 +1,11 @@
 {
-    "name": "uzsoftic/laravel-telegram-bot",
+    "name": "uzsoftic/laravel-telegram",
     "description": "Laravel Telegram Bot API",
     "minimum-stability": "stable",
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Uzsoftic\\TelegramBot\\": "src/"
+            "Uzsoftic\\LaravelTelegramBot\\": "src/"
         }
     },
     "authors": [
@@ -15,6 +15,6 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "^7.4"
     }
 }
