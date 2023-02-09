@@ -61,7 +61,6 @@ class Bot extends Controller{
         return false;
     }
 
-
     public function hasInline(): bool
     {
         if ($this->hasRequest() && !empty($this->update->inline_query->data)){
@@ -93,8 +92,8 @@ class Bot extends Controller{
 
     public function sendAction($chat_id, $action){
         $this->bot('sendChatAction',[
-            'chat_id'=>$chat_id,
-            'action'=>$action
+            'chat_id' => $chat_id,
+            'action' => $action
         ]);
     }
 
