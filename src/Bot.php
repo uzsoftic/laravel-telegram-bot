@@ -18,6 +18,7 @@ class Bot extends Controller{
     public mixed $update;
 
     public function __construct(Request $request, $config = 'default'){
+        dd('bot working');
         try {
             $this->request = $request;
             $this->config = $this->getConfig($config);
@@ -26,6 +27,29 @@ class Bot extends Controller{
             return false;
         }
     }
+
+    public function bot($method, $datas=[]){
+        dd($this->config);
+        $url = config('telegram.call_api').config('telegram.bot.'.$this->botconfig.'.token')."/".$method;
+        $client = new Client();
+        try {
+            $request = $client->requestAsync('POST', $url, ['form_params' => $datas]);
+            $response = $request->wait();
+            $statusCode = $response->getStatusCode();
+        } catch (RequestException $e) {
+            $statusCode = 0;
+        }
+
+        if ($statusCode == 200){
+            $query = $response->getBody()->getContents();
+            $result = json_decode($query);
+        }else{
+            $result = 'Error sending request, error_code: '.$statusCode;
+        }
+
+        return $result;
+    }
+
 
     // GET CONFIG FILE /config/telegram.php
     protected function getConfig($config){
@@ -98,6 +122,7 @@ class Bot extends Controller{
     }
 
     public function sendMessage($chat_id, $text, $parse_mod = 'html', $reply_markup = NULL){
+        dd('testset');
         $this->bot('sendMessage', [
             'chat_id' => $chat_id,
             'text' => $text,
